@@ -10,7 +10,7 @@ location = lambda x: os.path.join(
 
 DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '192.168.3.69', '68550afe.ngrok.io'])
 
 EMAIL_SUBJECT_PREFIX = '[Oscar sandbox] '
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -18,13 +18,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Use a Sqlite database by default
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.environ.get('DATABASE_NAME', location('db.sqlite')),
-        'USER': os.environ.get('DATABASE_USER', None),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', None),
-        'HOST': os.environ.get('DATABASE_HOST', None),
-        'PORT': os.environ.get('DATABASE_PORT', None),
-        'ATOMIC_REQUESTS': True
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'oscar_sandbox',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -131,7 +130,7 @@ TEMPLATES = [
 
                 # Oscar specific
                 'oscar.apps.search.context_processors.search_form',
-                'oscar.apps.communication.notifications.context_processors.notifications',
+                # 'oscar.apps.communication.notifications.context_processors.notifications',
                 'oscar.apps.checkout.context_processors.checkout',
                 'oscar.core.context_processors.metadata',
             ],
@@ -264,7 +263,7 @@ INSTALLED_APPS = [
     'oscar.apps.shipping.apps.ShippingConfig',
     'oscar.apps.catalogue.apps.CatalogueConfig',
     'oscar.apps.catalogue.reviews.apps.CatalogueReviewsConfig',
-    'oscar.apps.communication.apps.CommunicationConfig',
+    # 'oscar.apps.communication.apps.CommunicationConfig',
     'oscar.apps.partner.apps.PartnerConfig',
     'oscar.apps.basket.apps.BasketConfig',
     'oscar.apps.payment.apps.PaymentConfig',
@@ -295,6 +294,9 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'easy_thumbnails',
     'django_tables2',
+
+    'rest_framework',
+    'oscarapi',
 
     # Django apps that the sandbox depends on
     'django.contrib.sitemaps',

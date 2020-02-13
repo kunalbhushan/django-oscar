@@ -11,7 +11,7 @@ from apps.gateway import forms
 from oscar.apps.customer.forms import generate_username
 from oscar.core.loading import get_class
 
-Dispatcher = get_class('communication.utils', 'Dispatcher')
+# Dispatcher = get_class('communication.utils', 'Dispatcher')
 
 logger = logging.getLogger('gateway')
 
@@ -48,5 +48,5 @@ class GatewayView(generic.FormView):
             'body': get_template('gateway/email.txt').render({
                 'email': user.email, 'password': password})
         }
-        Dispatcher().send_email_messages(
-            real_email, msgs, from_email='blackhole@latest.oscarcommerce.com')
+        # Dispatcher().send_email_messages(
+        #     real_email, msgs, from_email='blackhole@latest.oscarcommerce.com')
